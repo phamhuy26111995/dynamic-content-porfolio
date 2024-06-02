@@ -1,0 +1,21 @@
+{
+  "welcome": "Welcome",
+  "description": "This is an example description",
+  "workWithMe": "Work with me",
+  "aboutMe": "About me",
+  "home": "Home",
+  "personalProjects": "Personal Projects",
+  "realProjects": "Real Projects",
+  "contact": "Contact",
+  "projectName": "Project Name",
+  "projectDescription": "Project Description",
+  "projectLink": "Demo",
+  "yearExperience": "Years of experience",
+  "completedProjects": "Completed Projects",
+  "getInTouch" : "GET IN TOUCH",
+  "letWorkTogether": "Let's work together",
+  "yourName": "Your Name",
+  "yourEmail": "Your Email",
+  "yourMessage": "Your Message",
+  "sendMessage": "Send Message"
+}
