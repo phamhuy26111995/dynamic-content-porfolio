@@ -10,14 +10,18 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { bannerAtom } from "../recoil/atom";
 import { bannerSelector } from "../recoil/selectors";
 import TypewriterComponent from "typewriter-effect";
+import { useTranslation } from "react-i18next";
+
 
 const Banner = () => {
   const bannerData = useRecoilValue(bannerSelector);
+  const {t, i18n} = useTranslation();
+  const currentLanguage = i18n.language;
   const {
     content: { surname, firstname, introduce, role },
     image,
   } = bannerData;
-  console.log(bannerData);
+
   return (
     <section className="min-h-[85vh] lg:min-h-[78] flex items-center" id="home">
       <div className="container mx-auto">
@@ -39,17 +43,7 @@ const Banner = () => {
               viewport={{ once: false, amount: 0.7 }}
               className="mb-6 text-[36px] lg:text-[60px] font-secondary font-semibold uppercase leading-[1]"
             >
-              <span className="text-white text-2xl">I am a </span>
-              {/* <Typed
-                className="text-2xl text-gradient"
-                strings={[
-                  "Back-end Java Developer",
-                  "Front-end React Developer",
-                ]}
-                typeSpeed={100}
-                backSpeed={100}
-                loop
-              /> */}
+              <span className="text-white text-2xl">{t('aboutMeDescription')} </span>
              <div className="inline-block">
              <TypewriterComponent
                 style={{ display: "inline-block"}}
@@ -70,7 +64,7 @@ const Banner = () => {
               viewport={{ once: false, amount: 0.7 }}
               className="mb-8 max-w-lg mx-auto lg:mx-0"
             >
-              {introduce}
+              {introduce[currentLanguage]}
             </motion.p>
             <motion.div
               variants={fadeIn("up", 0.6)}
@@ -80,10 +74,10 @@ const Banner = () => {
               className="flex max-w-max gap-x-6 items-center mb-12 mx-auto lg:mx-0"
             >
               <Link smooth="true" spy="true" to="contact">
-                <button className="btn btn-lg">Contact me</button>
+                <button className="btn btn-lg">{t('contact')}</button>
               </Link>
               <a href={MyCV} className="text-gradient btn-link" download>
-                Download My CV
+                {t("downloadCV")}
               </a>
             </motion.div>
 
