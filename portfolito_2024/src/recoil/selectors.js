@@ -1,7 +1,8 @@
 import { selector, selectorFamily } from "recoil";
 import {
   aboutAtom,
-  bannerAtom
+  bannerAtom,
+  headerAtom
 } from "./atom";
 
 import { get as firebaseGet, ref } from "firebase/database";
@@ -75,5 +76,48 @@ export const personalProjSelector = selector({
     }
 
     return [];
+  },
+});
+
+
+
+export const firstnameSelector = selector({
+  key: 'firstnameSelector',
+  get: ({ get }) => {
+    const state = get(headerAtom);
+    return state.header.leftContent.firstname;
+  },
+  set: ({ set }, newValue) => {
+    set(headerAtom, (prevState) => ({
+      ...prevState,
+      header: {
+        ...prevState.header,
+        leftContent: {
+          ...prevState.header.leftContent,
+          firstname: newValue,
+        },
+      },
+    }));
+  },
+});
+
+// Selector để lấy surname
+export const surnameSelector = selector({
+  key: 'surnameSelector',
+  get: ({ get }) => {
+    const state = get(headerAtom);
+    return state.header.leftContent.surname;
+  },
+  set: ({ set }, newValue) => {
+    set(headerAtom, (prevState) => ({
+      ...prevState,
+      header: {
+        ...prevState.header,
+        leftContent: {
+          ...prevState.header.leftContent,
+          surname: newValue,
+        },
+      },
+    }));
   },
 });
