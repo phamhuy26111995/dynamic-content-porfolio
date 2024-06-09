@@ -1,24 +1,29 @@
 import React from "react";
 import Blob from "./Blob";
-import MyCV from "../assets/image/HuyPham_CV_2023.pdf";
 import { FaGithub, FaFacebook, FaLinkedin } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { fadeIn } from "../variants";
-// import Typed from "react-typed";
 import { Link } from "react-scroll";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { bannerAtom } from "../recoil/atom";
+import { useRecoilValue } from "recoil";
 import { bannerSelector } from "../recoil/selectors";
 import TypewriterComponent from "typewriter-effect";
 import { useTranslation } from "react-i18next";
 
-
 const Banner = () => {
   const bannerData = useRecoilValue(bannerSelector);
-  const {t, i18n} = useTranslation();
+  const { t, i18n } = useTranslation();
   const currentLanguage = i18n.language;
   const {
-    content: { surname, firstname, introduce, role },
+    content: {
+      surname,
+      firstname,
+      introduce,
+      role,
+      githubLink,
+      linkedinLink,
+      facebookLink,
+      cvUrl,
+    },
     image,
   } = bannerData;
 
@@ -43,19 +48,21 @@ const Banner = () => {
               viewport={{ once: false, amount: 0.7 }}
               className="mb-6 text-[36px] lg:text-[60px] font-secondary font-semibold uppercase leading-[1]"
             >
-              <span className="text-white text-2xl">{t('aboutMeDescription')} </span>
-             <div className="inline-block">
-             <TypewriterComponent
-                style={{ display: "inline-block"}}
-                options={{
-                  wrapperClassName: "text-2xl text-gradient inline-block",
-                  strings: role,
-                  autoStart: true,
-                  loop: true,
-                  cursorClassName: "lg:text-[30px]",
-                }}
-              />
-             </div>
+              <span className="text-white text-2xl">
+                {t("aboutMeDescription")}{" "}
+              </span>
+              <div className="inline-block">
+                <TypewriterComponent
+                  style={{ display: "inline-block" }}
+                  options={{
+                    wrapperClassName: "text-2xl text-gradient inline-block",
+                    strings: role,
+                    autoStart: true,
+                    loop: true,
+                    cursorClassName: "lg:text-[30px]",
+                  }}
+                />
+              </div>
             </motion.div>
             <motion.p
               variants={fadeIn("up", 0.5)}
@@ -74,9 +81,9 @@ const Banner = () => {
               className="flex max-w-max gap-x-6 items-center mb-12 mx-auto lg:mx-0"
             >
               <Link smooth="true" spy="true" to="contact">
-                <button className="btn btn-lg">{t('contact')}</button>
+                <button className="btn btn-lg">{t("contact")}</button>
               </Link>
-              <a href={MyCV} className="text-gradient btn-link" download>
+              <a href={cvUrl} className="text-gradient btn-link" download>
                 {t("downloadCV")}
               </a>
             </motion.div>
@@ -88,19 +95,13 @@ const Banner = () => {
               viewport={{ once: false, amount: 0.7 }}
               className="flex text-[20px] gap-x-6 max-w-max mx-auto lg:mx-0"
             >
-              <a
-                href="https://www.linkedin.com/in/huy-pham26111995/"
-                target="_blank"
-              >
+              <a href={linkedinLink} target="_blank">
                 <FaLinkedin />
               </a>
-              <a href="https://github.com/phamhuy26111995" target="_blank">
+              <a href={githubLink} target="_blank">
                 <FaGithub />
               </a>
-              <a
-                href="https://www.facebook.com/phamhuy19951126"
-                target="_blank"
-              >
+              <a href={facebookLink} target="_blank">
                 <FaFacebook />
               </a>
             </motion.div>

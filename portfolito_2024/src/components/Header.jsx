@@ -1,50 +1,16 @@
-import React, {useEffect, useState} from "react";
-import {Link} from "react-scroll";
-import {database, provider, auth} from "../firebaseConfig";
-import {useTranslation} from "react-i18next";
-import {onValue, ref} from 'firebase/database';
-import {signInWithPopup } from 'firebase/auth';
-import {useRecoilState} from "recoil";
-import {firstnameSelector, surnameSelector} from "../recoil/selectors.js";
+import React from "react";
+import { Link } from "react-scroll";
+import { useTranslation } from "react-i18next";
+import { useRecoilValue } from "recoil";
+import { headerSelector } from "../recoil/selectors";
 
 const Header = () => {
-  const {t: translate} = useTranslation();
-  const [firstname, setFirstname] = useRecoilState(firstnameSelector);
-  const [surname, setSurname] = useRecoilState(surnameSelector);
+  const { t: translate, i18n } = useTranslation();
+  const { firstname, surname } = useRecoilValue(headerSelector);
 
-
-  useEffect(() => {
-    const headerRef = ref(database, 'header/leftContent');
-    onValue(headerRef, (snapshot) => {
-      const data = snapshot.val();
-      setFirstname(data.firstname)
-      setSurname(data.surname)
-    });
-
-  }, []);
-
-
-  const [user, setUser] = useState(null);
-
-  const signInWithGoogle = async () => {
-    try {
-      const result = await signInWithPopup(auth,provider);
-      console.log(result)
-      setUser(result.user);
-    } catch (error) {
-      console.error("Error during sign-in:", error);
-    }
-  };
-
-  const signOut = async () => {
-    try {
-      await auth.signOut();
-      setUser(null);
-    } catch (error) {
-      console.error("Error during sign-out:", error);
-    }
-  };
-
+  function changeLanguage(lng) {
+    i18n.changeLanguage(lng);
+  }
 
   return (
     <header className="py-8">
@@ -54,22 +20,33 @@ const Header = () => {
             <p className="text-2xl font-bold text-gradient">{surname}</p>
             <p className="text-2xl font-bold text-gradient">{firstname}</p>
           </a>
-
-         <div>
-           <Link smooth="true" spy="true" to="contact">
-             <button className="btn btn-sm">{translate('workWithMe')}</button>
-           </Link>
-           <div>
-             {user ? (
-               <div>
-                 <h2>Welcome, {user.displayName}</h2>
-                 <button onClick={signOut}>Sign Out</button>
-               </div>
-             ) : (
-               <button onClick={signInWithGoogle}>Sign In with Google</button>
-             )}
-           </div>
-         </div>
+          <div className="flex items-center gap-6">
+            <Link smooth="true" spy="true" to="contact">
+              <button className="btn btn-sm">{translate("workWithMe")}</button>
+            </Link>
+            <div className="flex">
+              <div
+                className="cursor-pointer"
+                onClick={() => changeLanguage("vi-VN")}
+              >
+                <img
+                  src="https://res.cloudinary.com/dgmmn28ih/image/upload/v1717829597/vietnam_round_icon_64_dk1gd0.png"
+                  alt="menu"
+                  className="w-full h-full"
+                />
+              </div>
+              <div
+                className="cursor-pointer"
+                onClick={() => changeLanguage("en-US")}
+              >
+                <img
+                  src="https://res.cloudinary.com/dgmmn28ih/image/upload/v1717829597/united_states_of_america_round_icon_64_g9efla.png"
+                  alt="menu"
+                  className="w-full h-full"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </header>

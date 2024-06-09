@@ -7,7 +7,7 @@ import { I18nextProvider } from "react-i18next";
 import { RecoilRoot } from "recoil";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+
     <I18nextProvider i18n={i18n}>
       <RecoilRoot>
         <React.Suspense fallback={<div>Loading...</div>}>
@@ -15,5 +15,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         </React.Suspense>
       </RecoilRoot>
     </I18nextProvider>
-  </React.StrictMode>
+
 );

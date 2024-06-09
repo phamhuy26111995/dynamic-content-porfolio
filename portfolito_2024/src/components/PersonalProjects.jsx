@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { fadeIn } from "../variants";
-import { Link } from "react-scroll";
+
 import { Carousel } from "antd";
 import { personalProjSelector } from "../recoil/selectors";
 import { useRecoilValue } from "recoil";
@@ -10,63 +10,32 @@ import i18n from "../i18n";
 
 const services = [
   {
-    name: "projectName"
+    name: "projectName",
   },
   {
-    name: "projectDescription"
+    name: "projectDescription",
   },
   {
-    name: "projectLink"
-  
+    name: "projectLink",
   },
 ];
-const contentStyle = {
-  margin: 0,
-  height: "500px",
-  color: "#fff",
-  lineHeight: "500px",
-  textAlign: "center",
-  background: "#364d79",
-};
 
-const responsive = {
-  superLargeDesktop: {
-    // the naming can be any, depends on you.
-    breakpoint: { max: 4000, min: 3000 },
-    items: 5,
-  },
-  desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 3,
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 464 },
-    items: 2,
-  },
-  mobile: {
-    breakpoint: { max: 464, min: 0 },
-    items: 1,
-  },
-};
 
 const PersonalProjects = () => {
-
   const personalProjData = useRecoilValue(personalProjSelector);
-
 
   return (
     <section id="services" className="section">
       <div className="container mx-auto">
         <motion.div
-         variants={fadeIn("up", 0.3)}
-         initial="hidden"
-         whileInView={"show"}
-         viewport={{ once: false, amount: 0.7 }}
-         className="flex-1  lg:bg-bottom  n mb-12 lg:mb-0"
+          variants={fadeIn("up", 0.3)}
+          initial="hidden"
+          whileInView={"show"}
+          viewport={{ once: false, amount: 0.7 }}
+          className="flex-1  lg:bg-bottom  n mb-12 lg:mb-0"
         >
           {/* text and img  */}
-          <Carousel autoplay  dots={{ className: "!-bottom-[2.5rem]" }}>
-
+          <Carousel autoplay dots={{ className: "!-bottom-[2.5rem]" }}>
             {personalProjData.map((proj, index) => {
               return (
                 <div key={index} className="px-5">
@@ -81,28 +50,23 @@ const PersonalProjects = () => {
   );
 };
 
-function CarouselItem({content, image}) {
+function CarouselItem({ content, image }) {
   // Tên dự án , mô tả, link, img
-  const {t : translate} = useTranslation();
+  const { t: translate } = useTranslation();
   const currentLanguage = i18n.language.split("-")[0];
-  
+
   return (
     <div className="flex flex-col lg:flex-row gap-x-10 ">
       {/* text and img  */}
-      <div
-        className="flex-1  lg:bg-bottom  mb-12 lg:mb-0"
-      >
+      <div className="flex-1  lg:bg-bottom  mb-12 lg:mb-0">
         <div className="lg:h-[100%] lg:py-7">
           <img className="h-[100%]" src={image} alt="" />
         </div>
       </div>
       {/* {services} */}
-      <div
-        className="flex-1 text-white"
-      >
+      <div className="flex-1 text-white">
         <div>
           {services.map((service, index) => {
-           
             return (
               <div
                 className="border-b border-white/20  py-[20px] flex"
@@ -112,7 +76,9 @@ function CarouselItem({content, image}) {
                   <h4 className="text-[20px] tracking-wider font-primary font-semibold mb-6">
                     {translate(`${service.name}`)}
                   </h4>
-                  <p className="font-secondary leading-tight">{content[currentLanguage][service.name]}</p>
+                  <p className="font-secondary leading-tight">
+                    {content[currentLanguage][service.name]}
+                  </p>
                 </div>
               </div>
             );

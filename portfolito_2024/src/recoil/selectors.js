@@ -21,6 +21,24 @@ export const fullDataSelector = selectorFamily({
   },
 });
 
+
+export const headerSelector = selector({
+  key: "headerSelector",
+  get: ({ get }) => {
+    const fullData = get(fullDataSelector({}));
+    if (fullData) {
+      const leftContent = fullData.header.leftContent;
+
+      return {
+        ...leftContent
+      };
+   
+    }
+
+    return {firstname : "HUY", surname : "PHẠM"};
+  },
+});
+
 export const bannerSelector = selector({
   key: "bannerSelector",
   get: ({ get }) => {
@@ -79,45 +97,21 @@ export const personalProjSelector = selector({
   },
 });
 
-
-
-export const firstnameSelector = selector({
-  key: 'firstnameSelector',
+export const getInTouchSelector = selector({
+  key: "getInTouchSelector",
   get: ({ get }) => {
-    const state = get(headerAtom);
-    return state.header.leftContent.firstname;
-  },
-  set: ({ set }, newValue) => {
-    set(headerAtom, (prevState) => ({
-      ...prevState,
-      header: {
-        ...prevState.header,
-        leftContent: {
-          ...prevState.header.leftContent,
-          firstname: newValue,
-        },
-      },
-    }));
-  },
-});
+    const fullData = get(fullDataSelector({}));
+    console.log(fullData)
+    if (fullData.getInTouch) {
+      const listEmailReceived = {
+        ...fullData.getInTouch.emailReceived,
+      };
+      
+      return Object.keys(listEmailReceived).map(
+        (key) => listEmailReceived[key]
+      );
+    }
 
-// Selector để lấy surname
-export const surnameSelector = selector({
-  key: 'surnameSelector',
-  get: ({ get }) => {
-    const state = get(headerAtom);
-    return state.header.leftContent.surname;
-  },
-  set: ({ set }, newValue) => {
-    set(headerAtom, (prevState) => ({
-      ...prevState,
-      header: {
-        ...prevState.header,
-        leftContent: {
-          ...prevState.header.leftContent,
-          surname: newValue,
-        },
-      },
-    }));
+    return [];
   },
 });
