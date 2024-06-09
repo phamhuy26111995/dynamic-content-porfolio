@@ -18,6 +18,11 @@
   "yourEmail": "Your Email",
   "yourMessage": "Your Message",
   "sendMessage": "Send Message",
-  "downloadMyCV": "Download my CV",
-  "aboutMeDescription": "I am a "
+  "downloadCV": "Download my CV",
+  "aboutMeDescription": "I am a ",
+  "sendEmailInfo": "You only send me a message per one email, I will contact you after receiving your email. Thank you!",
+  "invalidEmail": "Email is invalid",
+  "failToSendEmail": "Fail to send email, please try again later!",
+  "successToSendEmail": "Success to send email, I will contact you in 24 hours!",
+  "emailExist": "Email is already send, please wait for my response!"
 }

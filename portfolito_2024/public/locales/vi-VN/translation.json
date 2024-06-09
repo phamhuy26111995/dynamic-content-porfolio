@@ -19,5 +19,10 @@
   "yourMessage": "Tin nhắn của bạn",
   "sendMessage": "Gửi tin nhắn",
   "downloadCV": "Tải CV của tôi",
-  "aboutMeDescription" : "Tôi là một "
-}
+  "aboutMeDescription" : "Tôi là một ",
+  "sendEmailInfo": "Bạn chỉ có thể gửi tin nhắn cho tôi một lần trên một email, tôi sẽ phản hồi cho bạn trong 24 giờ. Cảm ơn bạn đã liên hệ với tôi!",
+  "invalidEmail": "Email không hợp lệ",
+  "failToSendEmail": "Gửi email thất bại, vui lòng thử lại sau",
+  "successToSendEmail": "Gửi email thành công, tôi sẽ phản hồi cho bạn trong 24 giờ",
+  "emailExist": "Email đã được gửi, vui lòng chờ phản hồi!"
+} 

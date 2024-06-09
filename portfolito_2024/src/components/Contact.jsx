@@ -6,25 +6,39 @@ import toast, { Toaster } from "react-hot-toast";
 import Loader from "./Loader";
 import { SERVICE_ID, TEMPLATE_ID, PUBLIC_KEY } from "../data/EmailJS";
 import { useTranslation } from "react-i18next";
+import { InfoCircleOutlined } from "@ant-design/icons";
+import { useRecoilValue } from "recoil";
+import { getInTouchSelector } from "../recoil/selectors";
+import { database } from "../firebaseConfig";
+import { ref, set } from "firebase/database";
 
-const notifyFail = () => toast.error("Email is invalid");
-const notifyFailToUseEmail = () => toast.error("Fail to send messages");
-const notifySuccess = () =>
-  toast.success("Thank you for your message ! I will contact you soon");
+import dayjs from "dayjs";
+import { random } from "lodash";
+
+const notifyFail = (trans) => toast.error(trans);
+const notifyFailToUseEmail = (trans) => toast.error(trans);
+const notifySuccess = (trans) => toast.success(trans);
 
 const Contact = () => {
   const form = useRef();
   const [isLoading, setIsLoading] = useState(false);
   const { t: translate } = useTranslation();
+  const getInTouch = useRecoilValue(getInTouchSelector);
 
   const sendMessage = async (e) => {
     e.preventDefault();
-
     let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    const { user_email } = form.current;
+    const { user_email, message } = form.current;
+
+    if (
+      getInTouch.find((item) => item.email.trim() === user_email.value.trim())
+    ) {
+      notifyFail(translate("emailExist"));
+      return;
+    }
 
     if (!regexEmail.test(user_email.value)) {
-      notifyFail();
+      notifyFail(translate("invalidEmail"));
       clearInput();
       return;
     }
@@ -33,14 +47,27 @@ const Contact = () => {
 
     try {
       await emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form.current, PUBLIC_KEY);
-      setIsLoading(false);
-      notifySuccess();
-      clearInput();
+
+      set(
+        ref(
+          database,
+          "getInTouch/emailReceived/" + `${random(1, 2000000000)}_email`
+        ),
+        {
+          email: user_email.value.trim(),
+          message: message.value,
+          dateSent: dayjs().format("DD/MM/YYYY HH:mm:ss"),
+        }
+      );
+
+      notifySuccess(translate("successToSendEmail"));
     } catch (e) {
       console.log(e);
-      notifyFailToUseEmail();
-      clearInput();
+      notifyFailToUseEmail(translate("failToSendEmail"));
       return;
+    } finally {
+      setIsLoading(false);
+      clearInput();
     }
   };
 
@@ -52,7 +79,7 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py:16 lg:section">
+    <section id="contact" className="py:16 lg:section h-[90vh]">
       <div className="container mx-auto">
         <div className="flex flex-col lg:flex-row lg:items-center">
           <motion.div
@@ -111,6 +138,12 @@ const Contact = () => {
                 translate("sendMessage")
               )}
             </button>
+            <div className="flex gap-2">
+              <InfoCircleOutlined className="text-accent" />
+              <span className="text-accent text-sm">
+                {translate("sendEmailInfo")}
+              </span>
+            </div>
           </motion.form>
         </div>
       </div>

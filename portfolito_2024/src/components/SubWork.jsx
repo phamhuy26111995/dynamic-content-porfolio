@@ -7,20 +7,18 @@ const SubWork = (props) => {
   const { currentIndex, setCurrentIndex, listLength } = props;
   return (
     <div className="relative">
-    
-        {parseInt(currentIndex) > 0 && (
-          <AiOutlineLeft
-            onClick={() => setCurrentIndex(parseInt(currentIndex) - 1)}
-            className="absolute left-0 top-[50%] text-[40px]  translate-x-[-60px] cursor-pointer"
-          />
-        )}
-        {parseInt(currentIndex) < listLength - 1 && (
-          <AiOutlineRight
-            onClick={() => setCurrentIndex(parseInt(currentIndex) + 1)}
-            className="absolute right-0 top-[50%] text-[40px]  translate-x-[60px] cursor-pointer"
-          />
-        )}
-
+      {parseInt(currentIndex) > 0 && (
+        <AiOutlineLeft
+          onClick={() => setCurrentIndex(parseInt(currentIndex) - 1)}
+          className="absolute left-0 top-[50%] text-[40px]  translate-x-[-60px] cursor-pointer"
+        />
+      )}
+      {parseInt(currentIndex) < listLength - 1 && (
+        <AiOutlineRight
+          onClick={() => setCurrentIndex(parseInt(currentIndex) + 1)}
+          className="absolute right-0 top-[50%] text-[40px]  translate-x-[60px] cursor-pointer"
+        />
+      )}
 
       <div className="flex flex-col lg:flex-row gap-x-10">
         {/* {image column 1} */}
@@ -36,9 +34,7 @@ const SubWork = (props) => {
               My Latest <br />
               Work.
             </h2>
-            <p className="max-w-sm mb-16">
-                {props.content}
-            </p>
+            <p className="max-w-sm mb-16">{props.content}</p>
             {/* <button className="btn btn-sm">View all projects</button> */}
           </div>
           <div className="group relative overflow-hidden border-2 border-white/50 rounded-xl">

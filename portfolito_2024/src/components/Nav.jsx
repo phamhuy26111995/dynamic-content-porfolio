@@ -36,6 +36,7 @@ const Nav = () => {
               smooth="true"
               spy="true"
               to="about"
+              offset={-100}
               className="cursor-pointer w-[60px] h-[60px] flex items-center justify-center"
             >
               <BiUser />
@@ -48,6 +49,7 @@ const Nav = () => {
               smooth="true"
               spy="true"
               to="services"
+              offset={-100}
               className="cursor-pointer w-[60px] h-[60px] flex items-center justify-center"
             >
               <BsClipboardData />
@@ -60,6 +62,7 @@ const Nav = () => {
               smooth="true"
               spy="true"
               to="work"
+              offset={-100}
               className="cursor-pointer w-[60px] h-[60px] flex items-center justify-center"
             >
               <BsBriefcase />
@@ -71,6 +74,7 @@ const Nav = () => {
               activeClass="active"
               smooth="true"
               spy="true"
+              offset={-100}
               to="contact"
               className="cursor-pointer w-[60px] h-[60px] flex items-center justify-center"
             >

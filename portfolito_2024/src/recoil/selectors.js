@@ -20,6 +20,24 @@ export const fullDataSelector = selectorFamily({
   },
 });
 
+
+export const headerSelector = selector({
+  key: "headerSelector",
+  get: ({ get }) => {
+    const fullData = get(fullDataSelector({}));
+    if (fullData) {
+      const leftContent = fullData.header.leftContent;
+
+      return {
+        ...leftContent
+      };
+   
+    }
+
+    return {firstname : "HUY", surname : "PHẠM"};
+  },
+});
+
 export const bannerSelector = selector({
   key: "bannerSelector",
   get: ({ get }) => {
@@ -71,6 +89,25 @@ export const personalProjSelector = selector({
 
       return Object.keys(listPersonalProject).map(
         (key) => listPersonalProject[key]
+      );
+    }
+
+    return [];
+  },
+});
+
+export const getInTouchSelector = selector({
+  key: "getInTouchSelector",
+  get: ({ get }) => {
+    const fullData = get(fullDataSelector({}));
+    console.log(fullData)
+    if (fullData.getInTouch) {
+      const listEmailReceived = {
+        ...fullData.getInTouch.emailReceived,
+      };
+      
+      return Object.keys(listEmailReceived).map(
+        (key) => listEmailReceived[key]
       );
     }
 
