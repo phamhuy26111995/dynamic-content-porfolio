@@ -15,7 +15,7 @@ i18n
       escapeValue: false, // React đã xử lý việc này
     },
     backend: {
-      loadPath: '/locales/{{lng}}/{{ns}}.json', // Đường dẫn đến các tệp dịch
+      loadPath: '/dynamic-content-porfolio/locales/{{lng}}/{{ns}}.json', // Đường dẫn đến các tệp dịch
     },
     // ns : ['translation', 'common'], // namespaces
     defaultNS: 'translation',
