@@ -11,16 +11,15 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: '18'
 
       - name: Install dependencies
-        run: |
-          npm install
+        uses: bahmutov/npm-install@v1
 
       - name: Build project
         env : 
@@ -35,11 +34,23 @@ jobs:
           VITE_TEMPLATE_ID_EMAIL_JS: ${{ secrets.VITE_TEMPLATE_ID_EMAIL_JS }}
           VITE_USER_PUBLIC_KEY: ${{ secrets.VITE_USER_PUBLIC_KEY }}
 
-        run: |
-          npm run build
+        run: npm run build
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+  deploy:
+      name: Deploy
+      needs: build
+      runs-on: ubuntu-latest
+      if: github.ref == 'refs/heads/main'
+        
+      steps:
+        - name: Download artifact
+          uses: actions/download-artifact@v3
+          with:
+            name: production-files
+            path: ./dist
+
+        - name: Deploy to GitHub Pages
+          uses: peaceiris/actions-gh-pages@v3
+          with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            publish_dir: ./dist
