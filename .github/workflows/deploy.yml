@@ -20,7 +20,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd portfolio_2024
+          cd portfolito_2024
           npm install
 
       - name: Build project
@@ -37,11 +37,11 @@ jobs:
           VITE_USER_PUBLIC_KEY: ${{ secrets.VITE_USER_PUBLIC_KEY }}
 
         run: |
-          cd portfolio_2024
+          cd portfolito_2024
           npm run build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./portfolio_2024/dist
+          publish_dir: ./portfolito_2024/dist
