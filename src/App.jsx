@@ -1,13 +1,7 @@
+import { Modal } from "antd";
 import React from "react";
-// import Banner from "./components/Banner";
-// import Header from "./components/Header";
-// import Nav from "./components/Nav";
-// import About from "./components/About";
+import AppModal from "./components/AppModal";
 
-// import Contact from "./components/Contact";
-
-// import PersonalProjects from "./components/PersonalProjects";
-// import RealProjects from "./components/RealProjects";
 
 const Header = React.lazy(() => import("./components/Header"));
 const Nav = React.lazy(() => import("./components/Nav"));
@@ -21,6 +15,7 @@ const Banner = React.lazy(() => import("./components/Banner"));
 function App() {
   return (
     <div className="bg-site bg-no-repeat bg-cover overflow-hidden">
+      <AppModal />
       <Header />
       <Banner />
       <Nav />

@@ -97,6 +97,25 @@ export const personalProjSelector = selector({
   },
 });
 
+export const realProjectSelector = selector({
+  key: "realProjectSelector",
+  get: ({ get }) => {
+    const fullData = get(fullDataSelector({}));
+
+    if (fullData) {
+      const listRealProject = {
+        ...fullData.realProjects,
+      };
+
+      return Object.keys(listRealProject).map(
+        (key) => listRealProject[key]
+      );
+    }
+
+    return [];
+  },
+});
+
 export const getInTouchSelector = selector({
   key: "getInTouchSelector",
   get: ({ get }) => {

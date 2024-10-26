@@ -5,6 +5,19 @@ export const fullDataAtom = atom({
   default: undefined,
 });
 
+export const isOpenAppModal = atom({
+  key : "appModal",
+  default : false
+});
+
+export const appModalProps = atom({
+  key : "appModalProps",
+  default : {
+    title : "",
+    children : <></>,
+  }
+});
+
 export const headerAtom = atom({
   key: "headerAtom",
   default: {

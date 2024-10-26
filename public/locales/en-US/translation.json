@@ -25,5 +25,12 @@
   "invalidEmail": "Email is invalid",
   "failToSendEmail": "Fail to send email, please try again later!",
   "successToSendEmail": "Success to send email, I will contact you in 24 hours!",
-  "emailExist": "Email is already send, please wait for my response!"
+  "emailExist": "Email is already send, please wait for my response!",
+  "seeMore" : "See more",
+  "role" : "Role",
+  "period" : "Period",
+  "teamSize" : "Team Size",
+  "technologies" : "Technologies",
+  "responsibility" : "Responsibility, Achievement",
+  "clickToSeeMore" : "Please click to See more button to get more detail"
 }
