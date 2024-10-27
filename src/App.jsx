@@ -8,7 +8,7 @@ const Nav = React.lazy(() => import("./components/Nav"));
 const About = React.lazy(() => import("./components/About"));
 const Contact = React.lazy(() => import("./components/Contact"));
 const PersonalProjects = React.lazy(() => import("./components/PersonalProjects"));
-const RealProjects = React.lazy(() => import("./components/RealProjects"));
+const RealProjects = React.lazy(() => import("./components/real-project/RealProjects"));
 const Banner = React.lazy(() => import("./components/Banner"));
 
 

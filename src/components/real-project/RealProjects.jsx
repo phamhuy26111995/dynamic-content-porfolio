@@ -1,20 +1,17 @@
 import React from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { isOpenAppModal } from "../recoil/atom";
-import { FaJava, FaReact } from "react-icons/fa";
-import { SiMysql } from "react-icons/si";
-import useOpenAppModal from "../hooks/useOpenAppModal";
-import { MoreOutlined } from "@ant-design/icons";
+import { isOpenAppModal } from "../../recoil/atom";
+import { FaGitlab, FaJava, FaJira, FaReact } from "react-icons/fa";
+import { SiHibernate, SiIntellijidea, SiJira, SiMysql, SiVisualstudiocode } from "react-icons/si";
+import useOpenAppModal from "../../hooks/useOpenAppModal";
+
 import { Carousel, Tooltip } from "antd";
 import { useTranslation } from "react-i18next";
-import { realProjectSelector } from "../recoil/selectors";
-import i18n from "../i18n";
+import { realProjectSelector } from "../../recoil/selectors";
+import i18n from "../../i18n";
+import SeeMoreComponent from "./SearchMore";
+import TechComponent from "./TechComponent";
 
-const ICON_MAPPING = {
-  react: <FaReact />,
-  java: <FaJava />,
-  mysql: <SiMysql />,
-};
 
 function RealProjects() {
   const realProjectData = useRecoilValue(realProjectSelector);
@@ -133,20 +130,7 @@ function ItemSecondCol() {
   );
 }
 
-function SeeMoreComponent({ onClickProps }) {
-  const { t } = useTranslation();
 
-  return (
-    <Tooltip title={t("seeMore")}>
-      <div
-        onClick={onClickProps}
-        className="cursor-pointer text-3xl text-accent"
-      >
-        <MoreOutlined />
-      </div>
-    </Tooltip>
-  );
-}
 
 function RealProjectItem({ project }) {
   const currentLang = i18n.language;
@@ -170,20 +154,6 @@ function RealProjectItem({ project }) {
   );
 }
 
-function TechComponent({ technologies }) {
-  const techArr = technologies.split(",");
 
-  return (
-    <div className="flex gap-6">
-      {techArr.map((el) => (
-        <>
-          <div className="flex items-center text-white gap-2 h-11">
-            <div className="text-white text-3xl">{ICON_MAPPING[el]}</div>
-          </div>
-        </>
-      ))}
-    </div>
-  );
-}
 
 export default RealProjects;
