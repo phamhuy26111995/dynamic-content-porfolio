@@ -4,12 +4,13 @@ import { useTranslation } from "react-i18next";
 import { useRecoilValue } from "recoil";
 import { headerSelector } from "../recoil/selectors";
 
-const Header = () => {
+const Header = ({setReRenderKey}) => {
   const { t: translate, i18n } = useTranslation();
   const { firstname, surname } = useRecoilValue(headerSelector);
 
   function changeLanguage(lng) {
     i18n.changeLanguage(lng);
+    setReRenderKey(prev => prev + 1)
   }
 
   return (

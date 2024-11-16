@@ -13,10 +13,12 @@ const Banner = React.lazy(() => import("./components/Banner"));
 
 
 function App() {
+  const [reRenderKey, setReRenderKey] = React.useState(1);
+
   return (
-    <div className="bg-site bg-no-repeat bg-cover overflow-hidden">
+    <div key={reRenderKey} className="bg-site bg-no-repeat bg-cover overflow-hidden">
       <AppModal />
-      <Header />
+      <Header setReRenderKey={setReRenderKey}  />
       <Banner />
       <Nav />
       <About />

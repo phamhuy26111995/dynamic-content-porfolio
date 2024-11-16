@@ -2,7 +2,13 @@ import React from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { isOpenAppModal } from "../../recoil/atom";
 import { FaGitlab, FaJava, FaJira, FaReact } from "react-icons/fa";
-import { SiHibernate, SiIntellijidea, SiJira, SiMysql, SiVisualstudiocode } from "react-icons/si";
+import {
+  SiHibernate,
+  SiIntellijidea,
+  SiJira,
+  SiMysql,
+  SiVisualstudiocode,
+} from "react-icons/si";
 import useOpenAppModal from "../../hooks/useOpenAppModal";
 
 import { Carousel, Tooltip } from "antd";
@@ -11,7 +17,7 @@ import { realProjectSelector } from "../../recoil/selectors";
 import i18n from "../../i18n";
 import SeeMoreComponent from "./SearchMore";
 import TechComponent from "./TechComponent";
-
+import parse from "html-react-parser";
 
 function RealProjects() {
   const realProjectData = useRecoilValue(realProjectSelector);
@@ -30,19 +36,7 @@ function RealProjects() {
 }
 
 function ItemFirstCol({ projectInfo, technologies }) {
-  const { setIsOpenAppModal, setPropsAppModal } = useOpenAppModal();
   const { t } = useTranslation();
-
-  function onOpenModalTech() {
-    setIsOpenAppModal((prevProp) => !prevProp);
-    setPropsAppModal({
-      title: <h1>Tech</h1>,
-      children: <h1>Technologies</h1>,
-      onCancel: () => setIsOpenAppModal(false),
-      onOk: () => setIsOpenAppModal(false),
-    });
-  }
-
   return (
     <>
       <div className="mb-8">
@@ -66,7 +60,6 @@ function ItemFirstCol({ projectInfo, technologies }) {
           <h2 className="h2 mb-0  leading-tight text-accent">
             {t("technologies")}
           </h2>
-          <SeeMoreComponent onClickProps={onOpenModalTech} key={"usage-tech"} />
         </div>
         <p className="max-w-sm mb-16">
           <TechComponent technologies={technologies} />
@@ -76,15 +69,15 @@ function ItemFirstCol({ projectInfo, technologies }) {
   );
 }
 
-function ItemSecondCol() {
+function ItemSecondCol({ projectDescription, myRole }) {
   const { setIsOpenAppModal, setPropsAppModal } = useOpenAppModal();
   const { t } = useTranslation();
 
   function onOpenModalProjectDesc() {
     setIsOpenAppModal((prevProp) => !prevProp);
     setPropsAppModal({
-      title: <h1>Project Description</h1>,
-      children: <h1>Project Description</h1>,
+      title: <h1>{t("projectDescription")}</h1>,
+      children: parse(projectDescription),
       onCancel: () => setIsOpenAppModal(false),
       onOk: () => setIsOpenAppModal(false),
     });
@@ -93,8 +86,8 @@ function ItemSecondCol() {
   function onOpenModalResponsible() {
     setIsOpenAppModal((prevProp) => !prevProp);
     setPropsAppModal({
-      title: <h1>Responsibility</h1>,
-      children: <h1>Responsibility</h1>,
+      title: <h1>{t("responsibility")}</h1>,
+      children: parse(myRole),
       onCancel: () => setIsOpenAppModal(false),
       onOk: () => setIsOpenAppModal(false),
     });
@@ -130,13 +123,11 @@ function ItemSecondCol() {
   );
 }
 
-
-
 function RealProjectItem({ project }) {
   const currentLang = i18n.language;
 
   const realProject = project[currentLang];
-
+  
   return (
     <div>
       <div className="flex gap-x-10">
@@ -147,13 +138,14 @@ function RealProjectItem({ project }) {
           />
         </div>
         <div className="flex flex-col flex-1">
-          <ItemSecondCol />
+          <ItemSecondCol
+            projectDescription={realProject.description}
+            myRole={realProject.myRole}
+          />
         </div>
       </div>
     </div>
   );
 }
-
-
 
 export default RealProjects;

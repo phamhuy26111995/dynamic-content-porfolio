@@ -120,7 +120,6 @@ export const getInTouchSelector = selector({
   key: "getInTouchSelector",
   get: ({ get }) => {
     const fullData = get(fullDataSelector({}));
-    console.log(fullData)
     if (fullData.getInTouch) {
       const listEmailReceived = {
         ...fullData.getInTouch.emailReceived,
